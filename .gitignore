@@ -1,6 +1,6 @@
 ### local directories ###
 **/.terraform/*
-**/state
+**/state/*
 
 ### VS Code ###
 .vscode/
