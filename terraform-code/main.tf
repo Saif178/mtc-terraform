@@ -1,12 +1,15 @@
 resource "github_repository" "mtc-repo" {
-  name        = "mtc-repo"
+  count       = 2
+  name        = "mtc-repo-${random_id.random[count.index].dec}"
   description = "Code for MTC"
   visibility  = "private"
   auto_init   = true
 }
 
+
 resource "github_repository_file" "readme" {
-  repository          = github_repository.mtc-repo.name
+  count               = 2
+  repository          = github_repository.mtc-repo[count.index].name
   branch              = "main"
   file                = "README.md"
   content             = "# This repo is for infra devlopers."
@@ -14,7 +17,8 @@ resource "github_repository_file" "readme" {
 }
 
 resource "github_repository_file" "index" {
-  repository          = github_repository.mtc-repo.name
+  count               = 2
+  repository          = github_repository.mtc-repo[count.index].name
   branch              = "main"
   file                = "index.html"
   content             = "<doc><body><h1>hello Terraform</h1></body></doc>"
@@ -23,4 +27,5 @@ resource "github_repository_file" "index" {
 
 resource "random_id" "random" {
   byte_length = 2
+  count       = 2
 }
