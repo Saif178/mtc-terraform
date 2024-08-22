@@ -29,3 +29,9 @@ resource "random_id" "random" {
   byte_length = 2
   count       = 2
 }
+
+output "repo-names" {
+  value = github_repository.mtc-repo[*].name
+  description = "Repository names"
+  sensitive   = true
+}
