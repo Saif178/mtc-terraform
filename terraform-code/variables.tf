@@ -31,10 +31,10 @@ variable "env" {
 #}
 
 variable "repos" {
-    type = set(string)
-    description = "repositories"
-    validation {
-        condition = length(var.repos) <= var.repo_max
-        error_message = "Please do not deploy more than the ${var.repo_max} allows"
-    }
+  type        = set(string)
+  description = "repositories"
+  validation {
+    condition     = length(var.repos) <= var.repo_max
+    error_message = "Please do not deploy more than the ${var.repo_max} allows"
+  }
 }

@@ -7,11 +7,15 @@ resource "github_repository" "mtc-repo" {
   provisioner "local-exec" {
     command = "gh repo view ${self.name} --web"
   }
-  provisioner "local-exec" {
-    command = "gh repo clone ${self.name}"
-  }
 }
 
+resource "terraform_data" "repo-clone" {
+  depends_on = [github_repository_file.readme, github_repository_file.index]
+  for_each   = var.repos
+  provisioner "local-exec" {
+    command = "gh repo clone ${github_repository.mtc-repo[each.key].name}"
+  }
+}
 
 resource "github_repository_file" "readme" {
   for_each            = var.repos
