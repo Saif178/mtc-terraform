@@ -4,8 +4,8 @@ variable "repo_count" {
   default     = 1
 }
 
-variable "varsource" {
-  type        = string
-  description = "source used to define variables"
-  #default     = "variables.tf"
-}
+#variable "varsource" {
+#  type        = string
+#  description = "source used to define variables"
+#  #default     = "variables.tf"
+#}
