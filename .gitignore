@@ -2,5 +2,8 @@
 **/.terraform/*
 **/state/*
 
+### cloned directories ###
+**/mtc-*
+
 ### VS Code ###
 .vscode/
