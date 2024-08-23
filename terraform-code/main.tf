@@ -2,7 +2,7 @@ resource "github_repository" "mtc-repo" {
   count       = 2
   name        = "mtc-repo-${random_id.random[count.index].dec}"
   description = "Code for MTC"
-  visibility  = "private"
+  visibility  = var.env == "dev" ? "private" : "public"
   auto_init   = true
 }
 
@@ -12,7 +12,7 @@ resource "github_repository_file" "readme" {
   repository          = github_repository.mtc-repo[count.index].name
   branch              = "main"
   file                = "README.md"
-  content             = "# This repo is for infra devlopers."
+  content             = "# This ${var.env} repo is for infra devlopers."
   overwrite_on_create = true
 }
 
