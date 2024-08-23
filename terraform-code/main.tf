@@ -8,7 +8,7 @@ resource "github_repository" "mtc-repo" {
 
 
 resource "github_repository_file" "readme" {
-  count               = 2
+  count               = var.repo_count
   repository          = github_repository.mtc-repo[count.index].name
   branch              = "main"
   file                = "README.md"
@@ -17,7 +17,7 @@ resource "github_repository_file" "readme" {
 }
 
 resource "github_repository_file" "index" {
-  count               = 2
+  count               = var.repo_count
   repository          = github_repository.mtc-repo[count.index].name
   branch              = "main"
   file                = "index.html"
@@ -27,11 +27,22 @@ resource "github_repository_file" "index" {
 
 resource "random_id" "random" {
   byte_length = 2
-  count       = 2
+  count       = var.repo_count
 }
 
 output "repo-names" {
-  value = github_repository.mtc-repo[*].name
+  value       = github_repository.mtc-repo[*].name
   description = "Repository names"
   sensitive   = true
+}
+
+output "clone-urls" {
+  value       = { for repo in github_repository.mtc-repo[*] : repo.name => repo.http_clone_url }
+  description = "Repository URLs"
+  sensitive   = false
+}
+
+output "varsource" {
+  value       = var.varsource
+  description = "source being used to source variable definition"
 }
