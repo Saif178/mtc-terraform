@@ -8,13 +8,13 @@ resource "github_repository" "mtc-repo" {
     command = "gh repo view ${self.name} --web"
   }
   provisioner "local-exec" {
-    when      = destroy
-    command   = "rmdir /s /q ${self.name}"
+    when    = destroy
+    command = "rmdir /s /q ${self.name}"
   }
 }
 
 resource "terraform_data" "repo-clone" {
-  depends_on = [github_repository_file.readme, github_repository_file.index]
+  depends_on = [github_repository_file.readme, github_repository_file.main]
   for_each   = var.repos
   provisioner "local-exec" {
     command = "gh repo clone ${github_repository.mtc-repo[each.key].name}"
@@ -22,20 +22,25 @@ resource "terraform_data" "repo-clone" {
 }
 
 resource "github_repository_file" "readme" {
-  for_each            = var.repos
-  repository          = github_repository.mtc-repo[each.key].name
-  branch              = "main"
-  file                = "README.md"
-  content             = "# This is a ${var.env} ${each.value.lang} repo for ${each.key} devlopers."
+  for_each   = var.repos
+  repository = github_repository.mtc-repo[each.key].name
+  branch     = "main"
+  file       = "README.md"
+  content = templatefile("C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-code\\template\\readme.tfpl", {
+    env         = var.env,
+    lang        = each.value.lang,
+    repo        = each.key,
+    author_name = data.github_user.current.name
+  })
   overwrite_on_create = true
-  lifecycle {
-    ignore_changes = [
-      content,
-    ]
-  }
+  #lifecycle {
+  #  ignore_changes = [
+  #    content,
+  #  ]
+  #}
 }
 
-resource "github_repository_file" "index" {
+resource "github_repository_file" "main" {
   for_each            = var.repos
   repository          = github_repository.mtc-repo[each.key].name
   branch              = "main"
@@ -49,24 +54,12 @@ resource "github_repository_file" "index" {
   }
 }
 
+#moved {
+#  from = github_repository_file.index
+#  to   = github_repository_file.main
+#}
+
 #resource "random_id" "random" {
 #  byte_length = 2
 #  count       = var.repo_count
-#}
-
-output "repo-names" {
-  value       = [for repo in github_repository.mtc-repo : repo.name]
-  description = "Repository names"
-  sensitive   = true
-}
-
-output "clone-urls" {
-  value       = { for repo in github_repository.mtc-repo : repo.name => [repo.ssh_clone_url, repo.http_clone_url] }
-  description = "Repository URLs"
-  sensitive   = false
-}
-
-#output "varsource" {
-#  value       = var.varsource
-#  description = "source being used to source variable definition"
 #}
