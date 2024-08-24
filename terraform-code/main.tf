@@ -1,6 +1,4 @@
-module "repos" {
-    source = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-code\\modules\\dev-repos"
-    env = "prod"
+locals {
     repos = {
         infra = {    
         lang     = "terraform",
@@ -13,4 +11,13 @@ module "repos" {
         pages    = false
         }
     }
+    environments = toset(["dev", "prod"])
+}
+
+module "repos" {
+    source = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-code\\modules\\dev-repos"
+    for_each = local.environments
+    repo_max = 9
+    env = each.key
+    repos = local.repos
 }

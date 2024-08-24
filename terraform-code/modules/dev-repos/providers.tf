@@ -7,6 +7,6 @@ terraform {
   }
 }
 
-provider "github" {
-  owner = "Saif178"
-}
+#provider "github" {
+# owner = "Saif178"
+#}
