@@ -4,9 +4,21 @@ resource "github_repository" "mtc-repo" {
   description = "${each.value.lang} Code for MTC"
   visibility  = var.env == "dev" ? "private" : "public"
   auto_init   = true
+  dynamic "pages" {
+    for_each = each.value.pages ? [1] : []
+    content {
+      source {
+        branch = "main"
+        path   = "/"
+      }
+    }
+  }
+
+
   provisioner "local-exec" {
     command = "gh repo view ${self.name} --web"
   }
+
   provisioner "local-exec" {
     when    = destroy
     command = "rmdir /s /q ${self.name}"
