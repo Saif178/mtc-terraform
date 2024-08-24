@@ -1,11 +1,15 @@
 resource "github_repository" "mtc-repo" {
   for_each    = var.repos
   name        = "mtc-repo-${each.key}"
-  description = "${each.value} code for MTC"
+  description = "${each.value.lang} Code for MTC"
   visibility  = var.env == "dev" ? "private" : "public"
   auto_init   = true
   provisioner "local-exec" {
     command = "gh repo view ${self.name} --web"
+  }
+  provisioner "local-exec" {
+    when      = destroy
+    command   = "rmdir /s /q ${self.name}"
   }
 }
 
@@ -22,7 +26,7 @@ resource "github_repository_file" "readme" {
   repository          = github_repository.mtc-repo[each.key].name
   branch              = "main"
   file                = "README.md"
-  content             = "# This ${var.env} repo is for infra devlopers."
+  content             = "# This is a ${var.env} ${each.value.lang} repo for ${each.key} devlopers."
   overwrite_on_create = true
 }
 
@@ -30,8 +34,8 @@ resource "github_repository_file" "index" {
   for_each            = var.repos
   repository          = github_repository.mtc-repo[each.key].name
   branch              = "main"
-  file                = "index.html"
-  content             = "<doc><body><h1>hello Terraform</h1></body></doc>"
+  file                = each.value.filename
+  content             = "# Hello ${each.value.lang}"
   overwrite_on_create = true
 }
 
@@ -47,7 +51,7 @@ output "repo-names" {
 }
 
 output "clone-urls" {
-  value       = { for repo in github_repository.mtc-repo : repo.name => repo.http_clone_url }
+  value       = { for repo in github_repository.mtc-repo : repo.name => [repo.ssh_clone_url, repo.http_clone_url] }
   description = "Repository URLs"
   sensitive   = false
 }
