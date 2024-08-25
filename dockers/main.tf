@@ -14,11 +14,11 @@ resource "docker_image" "nodered_image" {
 }
 
 resource "docker_container" "nodered_container" {
-  name  = "nodered"
+  name  = "nodered-178"
   image = docker_image.nodered_image.image_id
   ports {
-    internal = 1880
-    external = 1880
+    internal = 1881
+    external = 1881
   }
 }
 
