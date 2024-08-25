@@ -7,3 +7,7 @@
 
 ### VS Code ###
 .vscode/
+
+### state files ###
+**/dockers/*.tfstate
+**/dockers/*.tfstatebackup
