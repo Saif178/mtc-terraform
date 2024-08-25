@@ -11,7 +11,7 @@ locals {
         pages    = false
         }
     }
-    environments = toset(["dev", "prod"])
+    environments = toset(["prod"])
 }
 
 module "repos" {
@@ -20,4 +20,8 @@ module "repos" {
     repo_max = 9
     env = each.key
     repos = local.repos
+}
+
+output "repo-info" {
+    value = {for k,v in module.repos : k => v.clone-urls}
 }
