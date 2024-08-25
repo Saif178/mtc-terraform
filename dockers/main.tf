@@ -9,25 +9,37 @@ terraform {
 
 provider "docker" {}
 
+resource "random_string" "random" {
+  count   = 2
+  length  = 4
+  special = false
+  upper   = false
+}
+
 resource "docker_image" "nodered_image" {
   name = "nodered/node-red:latest-22"
 }
 
 resource "docker_container" "nodered_container" {
-  name  = "nodered-178"
+  count = 2
+  name  = join("-", ["nodered", random_string.random[count.index].result])
   image = docker_image.nodered_image.image_id
   ports {
-    internal = 1881
-    external = 1881
+    internal = 1880
+    #external = 1880
   }
 }
 
-output "ip_address" {
-    value = join(":", [docker_container.nodered_container.network_data[0].ip_address, docker_container.nodered_container.ports[0].external])
-    description = "the ip address and external port of the container"
+output "container_name" {
+  value       = docker_container.nodered_container[*].name
+  description = "the name of the containers"
 }
 
-output "container_name" {
-    value = docker_container.nodered_container.name
-    description = "the name of the container"
+output "ip_address" {
+  value = flatten([
+    for i in docker_container.nodered_container[*] : [
+        for ip, port in zipmap(i.network_data[*].ip_address, i.ports[*].external) : join(":", [ip, tostring(port)])
+    ]
+  ])
+  description = "the ip address and external port of the containers"
 }
