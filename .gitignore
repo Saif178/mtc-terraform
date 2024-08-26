@@ -11,3 +11,4 @@
 ### state files ###
 **/dockers/*.tfstate
 **/dockers/*.tfstate.backup
+**/dockers/*.tfstate.*.backup

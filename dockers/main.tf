@@ -9,8 +9,31 @@ terraform {
 
 provider "docker" {}
 
+variable "ext_port" {
+  type = number
+  default = 1880
+  validation {
+    condition = var.ext_port <= 65535 && var.ext_port > 0
+    error_message = "External port must be between 0 and 65535."
+  }
+}
+
+variable "int_port" {
+  type = number
+  default = 1880
+  validation {
+    condition = var.int_port == 1880
+    error_message = "Internal port must be 1880."
+  }
+}
+
+variable "container_count" {
+  type = number
+  default = 1
+}
+
 resource "random_string" "random" {
-  count   = 2
+  count   = var.container_count
   length  = 4
   special = false
   upper   = false
@@ -21,14 +44,14 @@ resource "docker_image" "nodered_image" {
 }
 
 resource "docker_container" "nodered_container" {
-  count = 2
+  count = var.container_count
   name  = join("-", ["nodered", random_string.random[count.index].result])
   image = docker_image.nodered_image.image_id
   ports {
-    internal = 1880
-    #external = 1880
+    internal = var.int_port
+    external = var.ext_port
   }
-}
+} 
 
 output "container_name" {
   value       = docker_container.nodered_container[*].name
