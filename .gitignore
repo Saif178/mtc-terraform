@@ -2,6 +2,7 @@
 **/.terraform/*
 **/state/*
 **/dockers/*.tfstate.d
+**/dockers/noderedvol
 
 ### cloned directories ###
 **/mtc-*
@@ -14,3 +15,7 @@
 **/dockers/*.tfstate.backup
 **/dockers/*.tfstate.*.backup
 **/dockers/*.tfvars
+
+### plan ###
+**/dockers/plan*
+**/dockers/*.png
