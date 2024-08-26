@@ -1,6 +1,7 @@
 ### local directories ###
 **/.terraform/*
 **/state/*
+**/dockers/*.tfstate.d
 
 ### cloned directories ###
 **/mtc-*

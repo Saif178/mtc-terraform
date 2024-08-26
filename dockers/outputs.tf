@@ -6,9 +6,9 @@ output "container_name" {
 output "ip_address" {
   value = flatten([
     for i in docker_container.nodered_container[*] : [
-        for ip, port in zipmap(i.network_data[*].ip_address, i.ports[*].external) : join(":", [ip, tostring(port)])
+      for ip, port in zipmap(i.network_data[*].ip_address, i.ports[*].external) : join(":", [ip, tostring(port)])
     ]
   ])
   description = "the ip address and external port of the containers"
-  sensitive = false
+  sensitive   = false
 }
