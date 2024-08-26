@@ -10,5 +10,5 @@ output "ip_address" {
     ]
   ])
   description = "the ip address and external port of the containers"
-  sensitive = true
+  sensitive = false
 }

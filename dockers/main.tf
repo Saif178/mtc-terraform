@@ -29,7 +29,7 @@ resource "random_string" "random" {
 }
 
 resource "docker_image" "nodered_image" {
-  name = "nodered/node-red:latest-22"
+  name = lookup(var.image, var.env)
 }
 
 resource "docker_container" "nodered_container" {
@@ -38,10 +38,10 @@ resource "docker_container" "nodered_container" {
   image = docker_image.nodered_image.image_id
   ports {
     internal = var.int_port
-    external = var.ext_port[count.index]
+    external = lookup(var.ext_port, var.env)[count.index]
   }
   volumes {
     container_path = "/data"
-    host_path = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\dockers\\noderedvol"
+    host_path = "${path.cwd}\\noderedvol"
   }
 } 
