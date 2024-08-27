@@ -3,6 +3,7 @@
 **/state/*
 **/dockers/*.tfstate.d
 **/dockers/noderedvol
+**/dockers/backup
 
 ### cloned directories ###
 **/mtc-*
@@ -19,3 +20,6 @@
 ### plan ###
 **/dockers/plan*
 **/dockers/*.png
+
+### sensitive info ###
+**/dockers/*.txt
