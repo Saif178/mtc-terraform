@@ -23,3 +23,5 @@
 
 ### sensitive info ###
 **/dockers/*.txt
+**/*.txt
+**/*.json
