@@ -12,10 +12,10 @@
 .vscode/
 
 ### state files ###
-**/dockers/*.tfstate
-**/dockers/*.tfstate.backup
-**/dockers/*.tfstate.*.backup
-**/dockers/*.tfvars
+**/**/*.tfstate
+**/**/*.tfstate.backup
+**/**/*.tfstate.*.backup
+**/**/*.tfvars
 
 ### plan ###
 **/dockers/plan*
