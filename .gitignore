@@ -25,3 +25,5 @@
 **/dockers/*.txt
 **/*.txt
 **/*.json
+**/*.exe
+**/*.exe.sha256

@@ -13,3 +13,4 @@ variable "dbpassword" {}
 variable "dbname" {}
 variable "user_data_path" {}
 variable "lb_target_group_arn" {}
+variable "tg_port" {}

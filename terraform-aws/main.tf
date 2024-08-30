@@ -57,4 +57,5 @@ module "compute" {
   db_endpoint         = module.database.db_endpoint
   user_data_path      = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\userdata.tpl"
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
+  tg_port             = 8000
 }
