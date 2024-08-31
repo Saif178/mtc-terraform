@@ -55,22 +55,22 @@ resource "aws_instance" "mtc_node" {
       host        = self.public_ip
       private_key = file(var.private_key_path)
     }
-    script = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\delay.sh"
+    script = "${var.k3s_path}\\mtc-terraform\\terraform-aws\\delay.sh"
   }
 
   provisioner "local-exec" {
-    command = templatefile("C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\update_file.tpl",
+    command = templatefile("${var.k3s_path}\\mtc-terraform\\terraform-aws\\update_file.tpl",
       {
         path     = var.private_key_path
         nodeip   = self.public_ip
         nodename = self.tags.Name
-        k3s-path = "C:\\Users\\Saif\\Downloads"
+        k3s-path = var.k3s_path
     })
   }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "del /Q C:\\Users\\Saif\\Downloads\\k3s-{self.tags.Name}.yaml"
+    command = "del /Q C:\\Users\\Saif\\Downloads\\k3s-${self.tags.Name}.yaml"
   }
 
   tags = {

@@ -59,4 +59,5 @@ module "compute" {
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
   tg_port             = 8000
   private_key_path    = var.private_key_path
+  k3s_path            = "C:\\Users\\Saif\\Downloads"
 }
