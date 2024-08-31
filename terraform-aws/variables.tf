@@ -25,3 +25,8 @@ variable "public_key_path" {
   type      = string
   sensitive = true
 }
+
+variable "path_to_key" {
+  type      = string
+  sensitive = true
+}

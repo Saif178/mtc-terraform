@@ -48,6 +48,16 @@ resource "aws_instance" "mtc_node" {
     volume_size = var.vol_size
   }
 
+  provisioner "local-exec" {
+    command = templatefile("C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\update_file.tpl", 
+    {
+      path     = var.path_to_key
+      nodeip   = self.public_ip
+      nodename = self.tags.Name
+      k3s-path = "C:\\Users\\Saif\\Downloads"
+    })
+  }
+
   tags = {
     Name = "mtc_node-${random_id.mtc_node_id[count.index].dec}"
   }
