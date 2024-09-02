@@ -1,0 +1,4 @@
+terraform-ci-cd\mtc-control\terraform.tfvars
+terraform-ci-cd\mtc-control\terraform.tfstate
+terraform-ci-cd\mtc-control\.terraform
+terraform-ci-cd\mtc-control\terraform.tfstate.backup
