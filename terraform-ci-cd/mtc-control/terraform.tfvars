@@ -1,5 +1,0 @@
-github_token         = "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"
-github_owner         = "Saif178"
-tfe_token            = "rFXm1Mx96z5yFg.atlasv1.4qHKeysy0Yj2rz1S3yr37e2yrEgSRzvqBMUHX0J1KDc5iyyj4V4xjPgZGZAyGhKQl2Q"
-aws_access_key_id    = "AKIAWS5B3UWSRYVYGF42"
-aws_secret_acess_key = "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"
