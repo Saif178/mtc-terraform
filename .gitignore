@@ -17,7 +17,7 @@
 **/**/*.tfstate.*.backup
 **/**/*.tfvars
 ! **/**/*.auto.tfvars
-**/**/**/*.tfvars
+**/terraform-ci-cd/mtc-control/*.tfvars
 
 ### plan ###
 **/dockers/plan*
