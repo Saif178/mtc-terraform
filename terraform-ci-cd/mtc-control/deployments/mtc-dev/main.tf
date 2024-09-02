@@ -21,5 +21,5 @@ module "networking" {
   version = "1.0.0"
 
   access_ip = "0.0.0.0/0"
-  aws_region = "us-east1"
+  aws_region = "us-east1" 
 }
