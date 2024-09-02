@@ -16,6 +16,7 @@
 **/**/*.tfstate.backup
 **/**/*.tfstate.*.backup
 **/**/*.tfvars
+! **/**/*.auto.tfvars
 
 ### plan ###
 **/dockers/plan*
