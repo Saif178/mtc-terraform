@@ -10,6 +10,6 @@ output "instances" {
 }
 
 output "kubeconfig" {
-  value     = [for instance in module.compute.instances : "set KUBECONFIG=C:\\Users\\Saif\\Downloads\\k3s-${instance.tags.Name}.yaml"]
+  value     = [for instance in module.compute.instances : "set KUBECONFIG=C:\\Users\\Saif\\Downloads\\Udemy_labs\\k3s-${instance.tags.Name}.yaml"]
   sensitive = true
 }

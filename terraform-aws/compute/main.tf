@@ -70,7 +70,8 @@ resource "aws_instance" "mtc_node" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "del /Q C:\\Users\\Saif\\Downloads\\k3s-${self.tags.Name}.yaml"
+    command = "del /Q C:\\Users\\Saif\\Downloads\\Udemy_labs\\k3s-${self.tags.Name}.yaml"
+    on_failure = continue
   }
 
   tags = {
