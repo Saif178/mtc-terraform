@@ -1,6 +1,6 @@
 ### local directories ###
 **/.terraform/*
-**/state/*
+**/**/state/*
 **/dockers/*.tfstate.d
 **/dockers/noderedvol
 **/dockers/backup
