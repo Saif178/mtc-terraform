@@ -1,3 +1,5 @@
+#---/dockers/container/main.tf---
+
 resource "random_string" "random" {
   count   = var.count_in
   length  = 4
@@ -22,16 +24,16 @@ resource "docker_container" "app_container" {
 
   }
   provisioner "local-exec" {
-    command = "echo ${self.name}: ${self.network_data[0].ip_address}:${self.ports[0].external} >> C:\\Users\\Saif\\Downloads\\mtc-terraform\\dockers\\containers.txt"
+    command = "echo ${self.name}: ${self.network_data[0].ip_address}:${self.ports[0].external} >> C:\\Users\\Saif\\Downloads\\mtc-terraform\\Udemy_labs\\dockers\\containers.txt"
   }
   provisioner "local-exec" {
     when    = destroy
-    command = "del /Q C:\\Users\\Saif\\Downloads\\mtc-terraform\\dockers\\containers.txt"
+    command = "del /Q C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\dockers\\containers.txt"
   }
 }
 
 module "volume" {
-  source       = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\dockers\\container\\volume"
+  source       = "C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\dockers\\container\\volume"
   count        = var.count_in
   volume_count = length(var.volumes_in)
   volume_name  = "${var.name_in}-${terraform.workspace}-${random_string.random[count.index].result}-volume"
