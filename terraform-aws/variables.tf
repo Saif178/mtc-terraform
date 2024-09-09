@@ -1,4 +1,4 @@
-#---terraform-aws/variables.tf---
+#---/terraform-aws/variables.tf---
 
 variable "aws_region" {
   default = "us-east-1"
@@ -6,6 +6,7 @@ variable "aws_region" {
 variable "access_ip" {
   type = string
 }
+
 #---database variables---
 variable "dbname" {
   type = string

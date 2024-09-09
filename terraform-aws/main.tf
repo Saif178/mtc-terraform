@@ -1,7 +1,7 @@
-#---terraform-aws/main.tf----
+#---/terraform-aws/main.tf----
 
 module "networking" {
-  source           = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\networking"
+  source           = "C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\terraform-aws\\networking"
   vpc_cidr         = local.vpc_cidr
   access_ip        = var.access_ip
   security_groups  = local.security_groups
@@ -14,7 +14,7 @@ module "networking" {
 }
 
 module "database" {
-  source                 = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\database"
+  source                 = "C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\terraform-aws\\database"
   db_storage             = 10
   db_engine_version      = "5.7.44"
   db_instance_class      = "db.t3.micro"
@@ -28,7 +28,7 @@ module "database" {
 }
 
 module "loadbalancing" {
-  source                 = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\loadbalancing"
+  source                 = "C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\terraform-aws\\loadbalancing"
   public_sg              = module.networking.public_sg
   public_subnets         = module.networking.public_subnets
   vpc_id                 = module.networking.vpc_id
@@ -43,7 +43,7 @@ module "loadbalancing" {
 }
 
 module "compute" {
-  source              = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\compute"
+  source              = "C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\terraform-aws\\compute"
   public_sg           = module.networking.public_sg
   public_subnets      = module.networking.public_subnets
   instance_count      = 1
@@ -55,9 +55,9 @@ module "compute" {
   dbuser              = var.dbuser
   dbpassword          = var.dbpassword
   db_endpoint         = module.database.db_endpoint
-  user_data_path      = "C:\\Users\\Saif\\Downloads\\mtc-terraform\\terraform-aws\\userdata.tpl"
+  user_data_path      = "C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\terraform-aws\\userdata.tpl"
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
   tg_port             = 8000
   private_key_path    = var.private_key_path
-  k3s_path            = "C:\\Users\\Saif\\Downloads"
+  k3s_path            = "C:\\Users\\Saif\\Downloads\\Udemy_labs"
 }
