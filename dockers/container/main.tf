@@ -24,7 +24,7 @@ resource "docker_container" "app_container" {
 
   }
   provisioner "local-exec" {
-    command = "echo ${self.name}: ${self.network_data[0].ip_address}:${self.ports[0].external} >> C:\\Users\\Saif\\Downloads\\mtc-terraform\\Udemy_labs\\dockers\\containers.txt"
+    command = "echo ${self.name}: ${self.network_data[0].ip_address}:${self.ports[0].external} >> C:\\Users\\Saif\\Downloads\\Udemy_labs\\mtc-terraform\\dockers\\containers.txt"
   }
   provisioner "local-exec" {
     when    = destroy
